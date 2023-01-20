@@ -1,7 +1,6 @@
 /data
 Pipfile
 Pipfile.lock
-/mlruns
 /notebooks/mlruns
 /notebooks/catboost_info
 
