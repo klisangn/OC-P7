@@ -1,6 +1,7 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score, fbeta_score
 
 
 def missing_values_summary(X, ascending=True):
@@ -44,3 +45,18 @@ def pct_null_buckets(x):
         return "x > 80 and x <= 90"
     else:
         return "> 90"
+
+def test_scores(search, X_test, y_test):
+    search.best_estimator_.fit(X_test, y_test)
+    y_test_pred = search.best_estimator_.predict(X_test)
+
+    a = accuracy_score(y_test, y_test_pred)
+    f = fbeta_score(y_test, y_test_pred, beta=2)
+
+    print("accuracy_score:", a)
+    print("fbeta_score:", f)
+
+    scores_labels = ["accuracy_score", "fbeta_score"]
+    scores_values = [a, f]
+
+    return pd.DataFrame({"score": scores_labels, "value": scores_values})
