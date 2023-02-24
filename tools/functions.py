@@ -1,6 +1,4 @@
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score, fbeta_score
 
 
@@ -28,6 +26,7 @@ def unique_value_counts(df, variable, percent_cumul=True):
 
     return counts
 
+
 def pct_null_buckets(x):
     if x <= 30:
         return "<= 30"
@@ -45,6 +44,7 @@ def pct_null_buckets(x):
         return "x > 80 and x <= 90"
     else:
         return "> 90"
+
 
 def test_scores(search, X_test, y_test):
     search.best_estimator_.fit(X_test, y_test)
