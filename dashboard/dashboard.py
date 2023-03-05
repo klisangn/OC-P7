@@ -21,6 +21,18 @@ col2.title('Credit scoring')
 
 # Overview
 st.markdown('# I. Customers Overview')
+
+col1, col2, col3, col4 = st.columns(4)
+col1.metric(label="Nb of clients", value=data.shape[0])
+col2.metric(label="Avg CREDIT", value=data.describe()['AMT_CREDIT']['mean'])
+col3.metric(label="Avg ANNUITY", value=data.describe()['AMT_ANNUITY']['mean'])
+col4.metric(label="Avg Monthly Instalment", value=data.describe()['AMT_ANNUITY']['mean']/12)
+col1.metric(label="Avg INCOME_CREDIT_PERC", value=data.describe()['INCOME_CREDIT_PERC']['mean'])
+col2.metric(label="Avg ANNUITY_INCOME_PERC", value=data.describe()['ANNUITY_INCOME_PERC']['mean'])
+col3.metric(label="Avg PAYMENT_RATE", value=data.describe()['PAYMENT_RATE']['mean'])
+# col4.metric(label="Avg Monthly Instalment", value=data.describe()['AMT_ANNUITY']['mean']/12)
+
+
 st.dataframe(data)
 
 # Focus
@@ -121,7 +133,7 @@ features.remove('SK_ID_CURR')
 features.remove('class')
 features.sort()
 features_option = st.selectbox('Select the feature:', features)
-client_feature = df[df['SK_ID_CURR'] == client_id_option][features_option][0]
+client_feature = df[df['SK_ID_CURR'] == client_id_option][features_option].values[0]
 
 st.markdown(f"**Client feature's value** _(in red in the charts below_): **:blue[{client_feature}]**")
 
@@ -149,11 +161,11 @@ df['score'] = y_proba[:,1]
 
 col1, col2 = st.columns(2)
 feature1_option = col1.selectbox('Select the 1st feature:', features)
-client_feature1 = df[df['SK_ID_CURR'] == client_id_option][feature1_option][0]
+client_feature1 = df[df['SK_ID_CURR'] == client_id_option][feature1_option].values[0]
 col1.markdown(f"**Client 1st feature's value**: **:blue[{client_feature1}]**")
 
 feature2_option = col2.selectbox('Select the 2nd feature:', features)
-client_feature2 = df[df['SK_ID_CURR'] == client_id_option][feature2_option][0]
+client_feature2 = df[df['SK_ID_CURR'] == client_id_option][feature2_option].values[0]
 col2.markdown(f"**Client 2nd feature's value**: **:blue[{client_feature2}]**")
 
 fig = plt.figure(figsize=(10, 4))
