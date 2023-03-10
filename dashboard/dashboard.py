@@ -2,11 +2,12 @@ import os
 import pandas as pd
 import streamlit as st
 import pickle
-import numpy as np
 import plotly.graph_objects as go
 import shap
 import matplotlib.pyplot as plt
 import seaborn as sns
+import requests
+
 parent_dir = os.path.abspath('..')
 
 # Data
@@ -22,17 +23,23 @@ col2.title('Credit scoring')
 # Overview
 st.markdown('# I. Customers Overview')
 
+st.markdown('## 1. Key metrics')
+metric1 = data.shape[0]
+metric2 = int(data.describe()['AMT_CREDIT']['mean'])
+metric3 = int(data.describe()['AMT_ANNUITY']['mean'])
+metric4 = int(data.describe()['AMT_ANNUITY']['mean']/12)
+
 col1, col2, col3, col4 = st.columns(4)
-col1.metric(label="Nb of clients", value=data.shape[0])
-col2.metric(label="Avg CREDIT", value=data.describe()['AMT_CREDIT']['mean'])
-col3.metric(label="Avg ANNUITY", value=data.describe()['AMT_ANNUITY']['mean'])
-col4.metric(label="Avg Monthly Instalment", value=data.describe()['AMT_ANNUITY']['mean']/12)
-col1.metric(label="Avg INCOME_CREDIT_PERC", value=data.describe()['INCOME_CREDIT_PERC']['mean'])
-col2.metric(label="Avg ANNUITY_INCOME_PERC", value=data.describe()['ANNUITY_INCOME_PERC']['mean'])
-col3.metric(label="Avg PAYMENT_RATE", value=data.describe()['PAYMENT_RATE']['mean'])
+col1.metric(label="Nb of clients", value=metric1)
+col2.metric(label="Avg CREDIT", value=metric2)
+col3.metric(label="Avg ANNUITY", value=metric3)
+col4.metric(label="Avg Monthly Instalment", value=metric4)
+# col1.metric(label="Avg INCOME_CREDIT_PERC", value=data.describe()['INCOME_CREDIT_PERC']['mean'])
+# col2.metric(label="Avg ANNUITY_INCOME_PERC", value=data.describe()['ANNUITY_INCOME_PERC']['mean'])
+# col3.metric(label="Avg PAYMENT_RATE", value=data.describe()['PAYMENT_RATE']['mean'])
 # col4.metric(label="Avg Monthly Instalment", value=data.describe()['AMT_ANNUITY']['mean']/12)
 
-
+st.markdown('## 2. Dataset')
 st.dataframe(data)
 
 # Focus
@@ -49,20 +56,13 @@ st.dataframe(x)
 ## Credit status
 st.markdown("## 2. Credit status")
 st.markdown("### 2.1. Theorical status")
-model_path = os.path.join(parent_dir, 'notebooks/mlruns/966063637948665005/a2cd557f418b4b81a6f694c7dbc4d55e/artifacts/model/model.pkl')
-model = pickle.load(open(model_path, "rb"))
-model = model[0]
-pred = model.predict_proba(x)[:,1][0]
 
-# thresholds = list(np.arange(0.1, 1.0, 0.1))
-# targets = []
-# for threshold in thresholds:
-#     target = 1 if pred >= threshold else 0
-#     targets.append(target)
-# thresholds_df = pd.DataFrame({"threshold": thresholds, "target": targets})
+url = 'http://localhost:5000/predict'
+params = x.to_json()
+r = requests.post(url, json=params)
+pred = r.json()
 
 opt_threshold = 0.6
-# opt_pred = int(thresholds_df[thresholds_df['threshold'] == 0.6]['target'].values[0])
 opt_pred = 1 if pred >= opt_threshold else 0
 
 col1, col2, col3 = st.columns(3)
@@ -115,6 +115,10 @@ st.plotly_chart(fig, use_container_width=True)
 ## Feature importance
 st.markdown("## 3. Deep-dive")
 st.markdown("### 3.1. Feature importance")
+
+model_path = os.path.join(parent_dir, 'notebooks/mlruns/966063637948665005/a2cd557f418b4b81a6f694c7dbc4d55e/artifacts/model/model.pkl')
+model = pickle.load(open(model_path, "rb"))
+model = model[0]
 explainer = shap.TreeExplainer(model)
 shap_values = explainer.shap_values(x)
 
@@ -154,10 +158,6 @@ col2.caption('Distribution of customers with payments difficulties :o:')
 st.markdown("### 3.3. Features comparison")
 y_proba =  model.predict_proba(data)
 df['score'] = y_proba[:,1]
-
-# features_num = list(df.select_dtypes([np.number]))
-# features_num.remove('SK_ID_CURR')
-# features_num.remove('class')
 
 col1, col2 = st.columns(2)
 feature1_option = col1.selectbox('Select the 1st feature:', features)
