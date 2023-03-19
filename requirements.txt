@@ -1,0 +1,5 @@
+seaborn
+plotly
+streamlit
+flask
+shap
