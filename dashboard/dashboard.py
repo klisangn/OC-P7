@@ -15,7 +15,9 @@ file_path = os.path.join(parent_dir, "data", "sample.csv")
 data = pd.read_csv(file_path)
 
 col1, col2 = st.columns([5,15])
-col1.image("img\logo.png", width=170)
+
+img_path = os.path.join("img", "logo.png")
+col1.image(img_path, width=170)
 col2.text("")
 col2.text("")
 col2.title('Credit scoring')
@@ -116,7 +118,7 @@ st.plotly_chart(fig, use_container_width=True)
 st.markdown("## 3. Deep-dive")
 st.markdown("### 3.1. Feature importance")
 
-model_path = os.path.join(parent_dir, 'notebooks/mlruns/966063637948665005/a2cd557f418b4b81a6f694c7dbc4d55e/artifacts/model/model.pkl')
+model_path = os.path.join(parent_dir, 'notebooks', 'mlruns', '966063637948665005', 'a2cd557f418b4b81a6f694c7dbc4d55e', 'artifacts', 'model', 'model.pkl')
 model = pickle.load(open(model_path, "rb"))
 model = model[0]
 explainer = shap.TreeExplainer(model)
@@ -124,8 +126,11 @@ shap_values = explainer.shap_values(x)
 
 shap.initjs()
 fig = shap.force_plot(explainer.expected_value[0], shap_values[0], x, matplotlib=True, show=False)
-plt.savefig('img\shap.png')
-st.image("img\shap.png")
+# plt.savefig('img\shap.png')
+# st.image('img\shap.png')
+img_path = os.path.join("img", "shap.png")
+plt.savefig(img_path)
+st.image(img_path)
 
 y_pred =  model.predict(data)
 df = data.copy()
@@ -178,4 +183,7 @@ plt.colorbar()
 st.pyplot(fig)
 
 st.markdown("### 3.1. Feature importance global")
-st.image("img\shap_summary.png", width=650)
+img_path = os.path.join(parent_dir, "img", "shap.png")
+
+img_path = os.path.join("img", "shap_summary.png")
+st.image(img_path, width=650)

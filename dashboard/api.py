@@ -12,7 +12,8 @@ def hello():
 
 # Load the model
 parent_dir = os.path.abspath('..')
-model_path = os.path.join(parent_dir, 'notebooks/mlruns/966063637948665005/a2cd557f418b4b81a6f694c7dbc4d55e/artifacts/model/model.pkl')
+# model_path = os.path.join(parent_dir, 'notebooks/mlruns/966063637948665005/a2cd557f418b4b81a6f694c7dbc4d55e/artifacts/model/model.pkl')
+model_path = os.path.join(parent_dir, 'notebooks', 'mlruns', '966063637948665005', 'a2cd557f418b4b81a6f694c7dbc4d55e', 'artifacts', 'model', 'model.pkl')
 model = pickle.load(open(model_path, "rb"))
 
 @app.route('/predict', methods=['POST'])
