@@ -3,3 +3,6 @@ plotly
 streamlit
 flask
 shap
+imblearn
+lightgbm
+ipython
