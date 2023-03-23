@@ -60,6 +60,7 @@ st.markdown("## 2. Credit status")
 st.markdown("### 2.1. Theorical status")
 
 url = 'http://localhost:5000/predict'
+# url = 'http://127.0.0.1:5000/predict'
 params = x.to_json()
 r = requests.post(url, json=params)
 pred = r.json()
