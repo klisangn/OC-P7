@@ -27,10 +27,10 @@ jobs:
           pip install pipenv
           pipenv install
           
-      - name: Activate environment
-        run: |
-          export PROMPT_COMMAND=""
-          pipenv shell
+      # - name: Activate environment
+      #   run: |
+      #     export PROMPT_COMMAND=""
+      #     pipenv shell
 
       - name: Run Python unit tests
-        run: python -m unittest dashboard/tests.py
+        run: pipenv run python -m unittest dashboard/tests.py
