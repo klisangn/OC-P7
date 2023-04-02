@@ -23,7 +23,7 @@ jobs:
           TARGET: ${{ secrets.TARGET_DIR }}
 
       - name: Go to directory
-        run: cd ~\OC-P7\
+        run: cd ~/OC-P7/
           
       - name: Activate environment
         run: pipenv shell
