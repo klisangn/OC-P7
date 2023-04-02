@@ -28,7 +28,7 @@ jobs:
           pip install pipenv
           
       - name: Activate environment
-        run: pipenv shell
+        run: cd /home/ubuntu/.local/share/virtualenvs/OC-P7-Vpo8lgTI/bin/activate
 
       - name: Run Python unit tests
         run: python -m unittest dashboard/tests.py
