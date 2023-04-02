@@ -5,6 +5,7 @@ Pipfile.lock
 /notebooks/mlruns
 /notebooks/catboost_info
 /notebooks/mlartifacts
+/notebooks/file_v2.html
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
