@@ -23,10 +23,10 @@ jobs:
           TARGET: ${{ secrets.TARGET_DIR }}
 
       - name: Go to directory
-      run: cd ~\OC-P7\
-        
+        run: cd ~\OC-P7\
+          
       - name: Activate environment
-      run: pipenv shell
+        run: pipenv shell
 
       - name: Run Python unit tests
-      run: python -m unittest dashboard/tests.py
+        run: python -m unittest dashboard/tests.py
