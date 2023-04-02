@@ -22,8 +22,8 @@ jobs:
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET_DIR }}
 
-      - name: Active pipenv shell
-        run: pipenv shell
-
       - name: Run Python unit tests
-        run: python -m unittest dashboard/tests.py
+        run: |
+        cd ~\OC-P7\
+        pipenv shell
+        python -m unittest dashboard/tests.py
