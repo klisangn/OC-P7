@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout the files
+        uses: actions/checkout@v3
+
       - name: Install dependencies
         run: |
           pip install pipenv
@@ -20,9 +23,6 @@ jobs:
         run: |
           cd ./dashboard/
           pipenv run python -m unittest tests.py
-
-      - name: Checkout the files
-        uses: actions/checkout@v3
                       
       - name: Deploy to Server
         uses: easingthemes/ssh-deploy@main
