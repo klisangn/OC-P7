@@ -11,6 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Install dependencies
+        run: |
+          pip install pipenv
+          pipenv install
+
+      - name: Run Python unit tests
+        run: |
+          cd ./dashboard/
+          pipenv run python -m unittest tests.py
+
       - name: Checkout the files
         uses: actions/checkout@v3
                       
@@ -21,13 +31,3 @@ jobs:
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET_DIR }}
-
-      - name: Install dependencies
-        run: |
-          pip install pipenv
-          pipenv install
-
-      - name: Run Python unit tests
-        run: |
-          cd ./dashboard/
-          pipenv run python -m unittest tests.py
