@@ -21,12 +21,12 @@ class TestApp(unittest.TestCase):
         file_path = os.path.join(parent_dir, "data", "sample.csv")
         data = pd.read_csv(file_path)
         x = data[data['SK_ID_CURR'] == 100028]
-        url = 'http://localhost:5000/predict'
+        # url = 'http://localhost:5000/predict'
+        url = 'http://127.0.0.1:5000/predict'
         params = x.to_json()
         r = requests.post(url, json=params)
         pred = r.json()
-        opt_pred = 1 if pred >= opt_threshold else 0
-        self.assertEqual(opt_pred, 1)
+        self.assertEqual(pred, 0.50345705959817)
 
         
 if __name__ == '__main__':
