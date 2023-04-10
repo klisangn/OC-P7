@@ -19,6 +19,11 @@ jobs:
           pip install pipenv
           pipenv install
 
+      - name: Launch API
+        run: |
+          cd ./dashboard/
+          pipenv run python api.py
+
       - name: Run Python unit tests
         run: |
           cd ./dashboard/
