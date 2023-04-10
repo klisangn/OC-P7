@@ -22,7 +22,7 @@ jobs:
       - name: Launch API
         run: |
           cd ./dashboard/
-          pipenv run python api.py
+          nohup pipenv run python api.py
 
       - name: Run Python unit tests
         run: |
