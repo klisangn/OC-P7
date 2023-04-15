@@ -6,6 +6,8 @@ Pipfile.lock
 /notebooks/catboost_info
 /notebooks/mlartifacts
 /notebooks/file_v2.html
+/dashboard/notebook_sample.ipynb
+/dashboard/request.ipynb
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
