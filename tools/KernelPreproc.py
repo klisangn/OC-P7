@@ -46,7 +46,7 @@ def one_hot_encoder(df, nan_as_category = True):
 def application_train_test(num_rows = None, nan_as_category = False):
     # Read data and merge
     df = pd.read_csv('../data/application_train.csv', nrows= num_rows)
-    # test_df = pd.read_csv('../input/application_test.csv', nrows= num_rows) # MODIF: No need of test data
+    # test_df = pd.read_csv('../input/application_test.csv', nrows= num_rows) ## MODIFICATION: No need of test data
     # print("Train samples: {}, test samples: {}".format(len(df), len(test_df)))
     # df = df.append(test_df).reset_index()
     # Optional: Remove 4 applications with XNA CODE_GENDER (train set)
@@ -354,7 +354,7 @@ def main(debug = False):
         del cc
         gc.collect()
     
-    return df
+    return df ## MODIFICATION: Use of feature engineering only
     # with timer("Run LightGBM with kfold"):
     #     feat_importance = kfold_lightgbm(df, num_folds= 10, stratified= False, debug= debug)
 
