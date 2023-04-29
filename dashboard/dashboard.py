@@ -117,7 +117,7 @@ st.plotly_chart(fig, use_container_width=True)
 
 ## Feature importance
 st.markdown("## 3. Deep-dive")
-st.markdown("### 3.1. Feature importance")
+st.markdown("### 3.1. Feature importance local")
 
 model_path = os.path.join(parent_dir, 'notebooks', 'mlruns', '966063637948665005', 'a2cd557f418b4b81a6f694c7dbc4d55e', 'artifacts', 'model', 'model.pkl')
 model = pickle.load(open(model_path, "rb"))
@@ -183,7 +183,7 @@ plt.ylabel(feature2_option)
 plt.colorbar()
 st.pyplot(fig)
 
-st.markdown("### 3.1. Feature importance global")
+st.markdown("### 3.4. Feature importance global")
 img_path = os.path.join(parent_dir, "img", "shap.png")
 
 img_path = os.path.join("img", "shap_summary.png")
